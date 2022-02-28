@@ -2,16 +2,22 @@
   <div>
     <div class="row" style="padding-top: 1rem">
       <div class="col-md-10">
-        <input
-          type="checkbox"
-          class="form-check-input"
-          :checked="todoProps.completed"
-          v-on:change="changeStatus"
-        />
-        <label class="form-check-label" style="padding-left: 1rem" :class="[todoProps.completed == true ? 'text-deco' : '']">
-  {{ todoProps.title }}
-  </label>
-       
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            :checked="todoProps.completed"
+            v-on:change="changeStatus"
+            :id="todoProps.id"
+          />
+          <label
+            class="form-check-label"
+            :class="[todoProps.completed == true ? 'text-deco' : '']"
+            :for="todoProps.id"
+          >
+            {{ todoProps.title }}
+          </label>
+        </div>
       </div>
       <div class="col-md-2">
         <button class="btn btn-warning" @click="deleteItem">Delete</button>
