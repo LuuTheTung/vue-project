@@ -23,8 +23,7 @@ export default {
   setup(props) {
     let email = ref("");
     let emailProp = toRef(props, "emailProp");
-    let mailformat = ref("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/");
-    // let isEmailActive = ref(true);
+    let mailformat = ref(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     let hasEmailError = ref(false);
     let emailErrorMessage = ref("");
     watch(emailProp, (value) => {
@@ -34,14 +33,12 @@ export default {
         emailErrorMessage.value = "Email must be filled out!";
       } else {
         if (!email.value.match(mailformat.value)) {
-          console.log(!email.value.match(mailformat.value))
-          // console.log(email.value, mailformat.value)
           hasEmailError.value = true;
           emailErrorMessage.value =
-            "";
+            "You have entered an invalid email address!";
         } else {
           hasEmailError.value = false;
-          emailErrorMessage.value = "You have entered an invalid email address!";
+          emailErrorMessage.value = "";
         }
       }
     });
