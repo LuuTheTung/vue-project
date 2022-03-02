@@ -20,6 +20,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
             <a class="nav-link"><router-link to="/"><strong>Home</strong></router-link></a>
           </li>
           <li style="float: right">
+            <a class="nav-link"><router-link to="/learn-vue"><strong>Learn Vue</strong></router-link></a>
+          </li>
+          <li style="float: right">
             <a class="nav-link"><router-link to="/about"><strong>About</strong></router-link></a>
           </li>
         </ul>
@@ -29,11 +32,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
   <router-view />
 </template>
 
-<style>
+<style lang="scss">
 @import "@/assets/base.css";
 body {
   background-color: rgb(254, 236, 225);
 }
+.content {
+  margin-top: 120px;
+  font-family: Tahoma, Verdana, sans-serif;
+  
+  &__form {
+    width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 2%;
+    padding: 30px;
+  }
+
+  .center{
+    text-align: center;
+  }
+}
+
 nav ul {
   display: block;
   position: fixed;

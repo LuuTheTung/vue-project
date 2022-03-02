@@ -31,7 +31,6 @@ export default {
         id: uuid.v4(),
       });
       context.emit("add-item", item);
-      console.log(item["title"])
     };
     return {
       title,
@@ -41,5 +40,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
