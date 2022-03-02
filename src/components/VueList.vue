@@ -1,42 +1,56 @@
 <template>
   <div class="content">
     <div class="content__form center">
-      <table class="table table-hover table-bordered caption-top">
-        <caption>
-          List of users
-        </caption>
-        <thead>
-          <th scope="col" v-for="(head, index) in listTableHead" :key="index">
-            {{ head }}
-          </th>
-        </thead>
-        <tbody>
-          <tr v-for="(user, index) in listUser" :key="index">
-            <td>{{ user.id }}</td>
-            <td style="cursor: pointer">
-              {{ user.name }}
-            </td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.phone }}</td>
-            <td>{{ user.address.street }} - {{ user.address.city }}</td>
-            <td>
-              <button
-                class="btn btn-success"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                @click="mapUserData(user.id)"
-              >
-                Edit
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-danger" @click="deleteItem(user.id)">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <Suspense>
+        <template #default>
+          <div>
+            <table class="table table-hover table-bordered caption-top">
+              <caption>
+                List of users
+              </caption>
+
+              <thead>
+                <th
+                  scope="col"
+                  v-for="(head, index) in listTableHead"
+                  :key="index"
+                >
+                  {{ head }}
+                </th>
+              </thead>
+              <tbody>
+                <tr v-for="(user, index) in listUser" :key="index">
+                  <td>{{ user.id }}</td>
+                  <td style="cursor: pointer">
+                    {{ user.name }}
+                  </td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.phone }}</td>
+                  <td>{{ user.address.street }} - {{ user.address.city }}</td>
+                  <td>
+                    <button
+                      class="btn btn-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      @click="mapUserData(user.id)"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" @click="deleteItem(user.id)">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </template>
+        <template #fallback>
+          <div>...loading</div>
+        </template>
+      </Suspense>
     </div>
     <!-- Modal -->
     <div
@@ -64,7 +78,7 @@
             <EmailField v-model="user.email" :emailProp="user.email"
               >Email:</EmailField
             >
-            <PhoneField v-model="user.phone" :phoneProp="user.phone" 
+            <PhoneField v-model="user.phone" :phoneProp="user.phone"
               >Phone number:</PhoneField
             >
           </div>
@@ -129,8 +143,8 @@ export default {
 
     const mapUserData = (id) => {
       const userData = ref([]);
-      userData.value = listUser.value.filter(item => item.id == id);
-      console.log(userData.value)
+      userData.value = listUser.value.filter((item) => item.id == id);
+      console.log(userData.value);
       user.name = userData.value[0].name;
       user.email = userData.value[0].email;
       user.phone = userData.value[0].phone;
@@ -146,13 +160,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      listUser.value.forEach(item => {
-        if(item.id == userId.value){
+      listUser.value.forEach((item) => {
+        if (item.id == userId.value) {
           item.name = user.name;
           item.email = user.email;
-          item.phone = user.phone
+          item.phone = user.phone;
         }
-      })
+      });
     };
 
     const deleteItem = async (id) => {
@@ -174,7 +188,6 @@ export default {
       saveChange,
       deleteItem,
       mapUserData,
-      
     };
   },
 };
